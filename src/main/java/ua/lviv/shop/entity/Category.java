@@ -2,6 +2,7 @@ package ua.lviv.shop.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,13 +20,25 @@ public class Category {
 
     private LocalDate created;
 
-//    @ManyToMany
-//    private Set<>
 
     @ManyToMany
     @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Item> items;
+
+    @ManyToOne
+    private Category parentCategory;
+
+    @OneToMany
+    private Set<Category> subCategories = new HashSet<>();
+
+
+    /**
+     * Keywords associated with this category
+     */
+    @ElementCollection
+    @CollectionTable(name = "keywords")
+    private Set<String> keywords;
 
     public Category() {
     }
@@ -47,6 +60,47 @@ public class Category {
         this.items = items;
 
 
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public Category getParentCategory() {
+        return parentCategory;
+    }
+
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
+    }
+
+    public Set<Category> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(Set<Category> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public Set<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<String> keywords) {
+        this.keywords = keywords;
     }
 
     @Override
