@@ -19,8 +19,7 @@ import com.actionbazaar.util.CreditCardCheck;
  * @author Ryan Cuprak
  */
 @Entity
-@DiscriminatorValue(value="C")
-@PrimaryKeyJoinColumn(name="BILLING_ID")
+
 public class CreditCard extends BillingInfo implements Serializable {
 
     /**
